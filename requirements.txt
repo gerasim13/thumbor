@@ -1,0 +1,3 @@
+pgmagick
+thumbor
+opencv-engine
