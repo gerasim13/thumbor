@@ -1,3 +1,4 @@
 pgmagick
+pymongo
 thumbor
 opencv-engine

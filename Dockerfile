@@ -1,16 +1,26 @@
-FROM dkarchmervue/python27-opencv
+FROM phusion/baseimage
 MAINTAINER Pavel Litvinenko <gerasim13@gmail.com>
 
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get -y dist-upgrade && apt-get -y autoremove
+ENV DEBIAN_FRONTEND noninteractive
+ENV HOME /root
 
-RUN apt-get install -y libgraphicsmagick++1-dev
-RUN apt-get install -y libboost-python-dev
-RUN apt-get install -y libcurl4-openssl-dev
+RUN apt-get update && apt-get install -y --no-install-recommends\
+	build-essential python-dev curl python-pycurl python-pip \
+	python-numpy python-opencv webp libpng-dev libtiff-dev libjasper-dev libjpeg-dev \
+	libdc1394-22-dev libdc1394-22 libdc1394-utils \
+	gifsicle libgif-dev \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y --no-install-recommends\
+  libgraphicsmagick++1-dev libboost-python-dev libcurl4-openssl-dev \
+  && apt-get -y autoremove \
+  && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /tmp/
 RUN pip install --upgrade pip
 RUN pip install -r /tmp/requirements.txt
 
-CMD ["thumbor"]
 EXPOSE 8888
+
+ENTRYPOINT ["thumbor"]
+CMD ["-p 8888"]
