@@ -5,10 +5,11 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /root
 
 RUN apt-get update && apt-get install -y --no-install-recommends\
-	build-essential python-dev curl git python-pycurl python-pip \
-	python-numpy python-opencv webp libpng-dev libtiff-dev libjasper-dev libjpeg-dev \
+	build-essential python-dev curl git python-pycurl python-pip gifsicle \
+	python-numpy python-opencv webp \
+	libpng-dev libtiff-dev libjasper-dev libjpeg-dev libgif-dev \
 	libdc1394-22-dev libdc1394-22 libdc1394-utils \
-	gifsicle libgif-dev \
+	libpng libtiff libjasper libjpeg \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y --no-install-recommends\
